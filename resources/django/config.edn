@@ -1,0 +1,40 @@
+{:duct.profile/base
+ {:duct.core/project-ns django
+
+  :duct.router/ataraxy
+  {:routes
+   {[:get "/"] [:django.handler.django/list]
+    [:get "/detail/" id "/foo/" blah] [:django.handler.django/detail id blah]}}
+
+  ; handlers
+  [:django.handler.django/list]
+  {:sql ["SELECT * FROM user" :foo]
+   :view #ig/ref :django.view.django/index}
+
+  [:django.handler.django/detail]
+  {:sql ["SELECT * FROM user WHERE id = ?" :id]
+   :view #ig/ref :django.view.django/detail}
+
+  ; views
+  [:django.view.django/index] {}
+  [:django.view.django/detail] {}
+ 
+  ; migrations
+  :duct.migrator/ragtime
+  {:migrations [#ig/ref :django.migrations/create-user]}
+
+  [:duct.migrator.ragtime/sql :django.migrations/create-user]
+  {:up [#duct/resource "django/migrations/create-user.up.sql"]
+   :down [#duct/resource "django/migrations/create-user.down.sql"]}
+
+  }
+
+ :duct.profile/dev   #duct/include "dev"
+ :duct.profile/local #duct/include "local"
+ :duct.profile/prod  {}
+
+ :duct.module/logging {}
+ :duct.module.web/site
+ {}
+ :duct.module/sql
+ {}}
