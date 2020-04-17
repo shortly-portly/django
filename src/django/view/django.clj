@@ -25,3 +25,15 @@
   (bs/layout
    [:div
     [:h1 "Details"]])))
+
+(defmethod ig/init-key :django.view.django/list [_ _]
+  (fn [data]
+  (bs/layout
+   [:div
+    [:h1 "Results"]
+
+    (bs/table ["auto first name" "auto last name" "auto age"]
+              (for [entry data]
+                [:tr
+                (for [[k x] entry]
+                 [:td x])]))])))

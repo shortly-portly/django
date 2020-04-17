@@ -32,7 +32,8 @@
 ; Prep Keys
 (defmethod ig/prep-key :django.handler.django/list [_ config]
   (merge
-   {:db (ig/ref :duct.database/sql)} config))
+   {:db (ig/ref :duct.database/sql)
+    :view (ig/ref :django.view.django/list)} config))
 
 (defmethod ig/prep-key :django.handler.django/detail [_ config]
   (merge

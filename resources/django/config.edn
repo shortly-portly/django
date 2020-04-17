@@ -8,8 +8,7 @@
 
   ; handlers
   [:django.handler.django/list]
-  {:sql ["SELECT * FROM user" :foo]
-   :view #ig/ref :django.view.django/index}
+  {:sql ["SELECT * FROM user" ]}
 
   [:django.handler.django/detail]
   {:sql ["SELECT * FROM user WHERE id = ?" :id]
@@ -18,7 +17,8 @@
   ; views
   [:django.view.django/index] {}
   [:django.view.django/detail] {}
- 
+  [:django.view.django/list] {}
+
   ; migrations
   :duct.migrator/ragtime
   {:migrations [#ig/ref :django.migrations/create-user]}
